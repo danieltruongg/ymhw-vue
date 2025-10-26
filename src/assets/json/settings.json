@@ -1,0 +1,15 @@
+{
+  "title": "YMHW",
+  "logo": "/src/assets/images/logo.png",
+  "firestore": {
+    "users": "users",
+    "stories": {
+      "youth": "youth-stories"
+    },
+    "ratings": {
+      "youth": {
+        "calls": "youth-call-ratings"
+      }
+    }
+  }
+}
