@@ -1,4 +1,4 @@
-name: Deployment to GitHub Pages
+name: Run Tests & Deploy to Vercel
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
   
 jobs:
-  build-and-deploy:
-    name: Build CI and Deploy to Production
+  tests:
+    name: Build CI
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,9 +26,20 @@ jobs:
       
       - name: Build Project
         run: npm run build
+  
+  deploy:
+    name: Deploy to Vercel
+    needs: tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
       
-      - name: Deploy to Production
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+      - name: deploy
+        uses: amondnet/vercel-action@v25
         with:
-          branch: gh-pages
-          folder: dist
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-args: --prod # Optional
+          vercel-org-id: ${{ secrets.ORG_ID}} # Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}} # Required
