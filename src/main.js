@@ -13,6 +13,7 @@ import Aura from '@primevue/themes/aura'
 
 initializeAuth().then(() => {
   console.log('Auth Initialized')
+  console.log('hello')
   const app = createApp(App)
   app.use(router)
   app.use(PrimeVue, {
